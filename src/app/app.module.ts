@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ImageDropComponent } from './image-drop/image-drop.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ImageDropComponent
   ],
   imports: [
     BrowserModule,

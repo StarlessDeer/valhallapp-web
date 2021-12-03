@@ -1,0 +1,18 @@
+<div class="main">
+  <img *ngFor="let scrollItem of scrollList" [src]="scrollItem.image.imgUrl" class="imageArt"  [ngStyle]="{'margin-left':scrollItem.margin}" (click)="selectedImage=scrollItem.image">
+</div>
+<div class="timeline">
+  <!-- if nothing has been selected -->
+  <div *ngIf="selectedImage==null">
+    <h3><u>Click on an image to display it here!</u></h3>
+    <img src="https://cdn.discordapp.com/emojis/790203014878855198.gif"/>
+  </div>
+  <!-- if something has been selected -->
+  <div *ngIf="selectedImage!=null">
+    <h3>
+      <u>Artist:</u> {{selectedImage.artist.name}}
+    </h3>
+    <img [src]="selectedImage.imgUrl" class="selectedImage"/>
+
+  </div>
+</div>
