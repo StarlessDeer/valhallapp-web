@@ -5,7 +5,7 @@
 </div>
 <div class="timeline" *ngIf="selectedImage!=null||isMobile()">
 
-  <mat-icon class="cancel" (click)="ClearSelectedImage()">cancel</mat-icon>
+  <mat-icon class="cancel" (click)="ClearSelectedImage()" *ngIf="!isMobile()">cancel</mat-icon>
   <div class=line *ngIf="isMobile()"></div>
   <!-- if nothing has been selected -->
   <div *ngIf="selectedImage==null">

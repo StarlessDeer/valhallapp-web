@@ -79,6 +79,11 @@
         "name":"KanaKokoroSempai",
         "imgUrl":null,
         "twitterUrl":null
+      },
+      {
+        "name":"DragonSnow",
+        "imgUrl":null,
+        "twitterUrl":"https://twitter.com/DragonSnow4"
       }
     ],
     "antaresUrl": [
@@ -251,6 +256,10 @@
       {
         "credit": 15,
         "url": "https://cdn.discordapp.com/attachments/868844552574881814/883436982204784650/Redsparx.png"
+      },
+      {
+        "credit": 16,
+        "url": "https://media.discordapp.net/attachments/896241870894678066/916252413646741534/178.gif"
       }
     ]
   }
