@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { TooltipPosition } from '@angular/material/tooltip';
 
-import * as imageData from '../imageUrl.json';
+import imageData from '../imageUrl.json';
 
 @Component({
   selector: 'app-image-drop',
@@ -13,15 +14,16 @@ export class ImageDropComponent implements OnInit {
   public starlessList:Image[] = [];
   public antaresList:Image[] = [];
   public scrollList:ScrollImage[] = [];
-  public selectedImage:Image = null;
-
+  public selectedImage: Image| undefined | null;
+  public positionOptions: TooltipPosition="below";
+  @HostListener("window:resize", [])
   ngOnInit() {
     // intit all the artists
     imageData.artistList.forEach(artist =>
       this.artistList.push(new Artist(artist.name,artist.imgUrl,artist.twitterUrl))
     );
     // intit all the starless img
-    imageData.imageUrl.forEach(image =>
+    imageData.starlessUrl.forEach(image =>
       this.starlessList.push(new Image(this.artistList[image.credit],image.url))
     );
     // init all the antares img
@@ -43,14 +45,32 @@ export class ImageDropComponent implements OnInit {
     },1000);
   }
 
+  OpenLink(link : string | null) {
+    if (link!= null)
+      window.open(link, "_blank");
+  }
+
+  ClearSelectedImage() {
+    this.selectedImage=null;
+  }
+
+  isMobile():boolean {
+    var width = window.innerWidth;
+    if ( width < 600) {
+      return true;
+    } else {
+      return false;
+    };
+  }
+
 }
 
 class Artist {
   name: string;
-  imgUrl: string;
-  twitterUrl: string;
+  imgUrl: string | null;
+  twitterUrl: string | null;
 
-  constructor(name:string, imgUrl:string, twitterUrl:string) {
+  constructor(name:string, imgUrl:string | null, twitterUrl:string | null) {
     this.name=name;
     this.imgUrl=imgUrl;
     this.twitterUrl=twitterUrl;
@@ -60,7 +80,6 @@ class Artist {
 class Image {
   artist: Artist;
   imgUrl: string;
-  twitterUrl: string;
 
   constructor(artist:Artist, imgUrl:string) {
     this.artist=artist;

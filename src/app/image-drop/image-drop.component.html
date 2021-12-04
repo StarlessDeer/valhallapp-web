@@ -1,18 +1,34 @@
-<div class="main">
+
+
+<div class="main" *ngIf="isMobile()">
   <img *ngFor="let scrollItem of scrollList" [src]="scrollItem.image.imgUrl" class="imageArt"  [ngStyle]="{'margin-left':scrollItem.margin}" (click)="selectedImage=scrollItem.image">
 </div>
-<div class="timeline">
+<div class="timeline" *ngIf="selectedImage!=null||isMobile()">
+
+  <mat-icon class="cancel" (click)="ClearSelectedImage()">cancel</mat-icon>
+  <div class=line *ngIf="isMobile()"></div>
   <!-- if nothing has been selected -->
   <div *ngIf="selectedImage==null">
-    <h3><u>Click on an image to display it here!</u></h3>
+    <h2><u>Click on an image to display it here!</u></h2>
     <img src="https://cdn.discordapp.com/emojis/790203014878855198.gif"/>
   </div>
-  <!-- if something has been selected -->
+  <!-- if something has been selected AND mobile -->
   <div *ngIf="selectedImage!=null">
     <h3>
       <u>Artist:</u> {{selectedImage.artist.name}}
     </h3>
-    <img [src]="selectedImage.imgUrl" class="selectedImage"/>
-
+    <img [src]="selectedImage.imgUrl" class="selectedImage" (click)="OpenLink(selectedImage.imgUrl)" />
+    <button mat-raised-button color="primary" (click)="OpenLink(selectedImage.artist.twitterUrl)" *ngIf="selectedImage.artist.twitterUrl!=null"  matTooltip="Will open up their twitter page">
+      <mat-icon>link</mat-icon>
+      Twitter
+    </button>
+    <button mat-raised-button [cdkCopyToClipboard]="selectedImage.imgUrl" matTooltip="Will copy the image url into the clipboard" >
+      <mat-icon>link</mat-icon>
+      Copy link to clipboard
+    </button>
   </div>
+</div>
+
+<div class="main" *ngIf="!isMobile()">
+  <img *ngFor="let scrollItem of scrollList" [src]="scrollItem.image.imgUrl" class="imageArt"  [ngStyle]="{'margin-left':scrollItem.margin}" (click)="selectedImage=scrollItem.image">
 </div>
