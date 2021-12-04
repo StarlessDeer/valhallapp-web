@@ -1,7 +1,7 @@
 
 
 <div class="main" *ngIf="isMobile()">
-  <img *ngFor="let scrollItem of scrollList" [src]="scrollItem.image.imgUrl" class="imageArt"  [ngStyle]="{'margin-left':scrollItem.margin}" (click)="selectedImage=scrollItem.image">
+  <img *ngFor="let scrollItem of scrollList" [src]="scrollItem.image.imgUrl" class="imageArt"  [ngStyle]="{'margin-left':scrollItem.margin}" (click)="selectedImage=scrollItem.image" >
 </div>
 <div class="timeline" *ngIf="selectedImage!=null||isMobile()">
 
@@ -13,7 +13,7 @@
     <img src="https://cdn.discordapp.com/emojis/790203014878855198.gif"/>
   </div>
   <!-- if something has been selected AND mobile -->
-  <div *ngIf="selectedImage!=null">
+  <div *ngIf="selectedImage!=null&&selectedImage.artist!=null">
     <h3>
       <u>Artist:</u> {{selectedImage.artist.name}}
     </h3>

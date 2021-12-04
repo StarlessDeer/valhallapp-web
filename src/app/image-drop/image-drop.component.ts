@@ -16,7 +16,30 @@ export class ImageDropComponent implements OnInit {
   public scrollList:ScrollImage[] = [];
   public selectedImage: Image| undefined | null;
   public positionOptions: TooltipPosition="below";
-  @HostListener("window:resize", [])
+  public listKey: string[] = [];
+  public isAntares: boolean = false;
+  public boom : Image = new Image(null,"../assets/boom.gif");
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if(event.key == "Escape") this.selectedImage=null;
+    if (this.listKey.length>9) {
+      this.listKey.shift();
+    }
+    this.listKey.push(event.key);
+    if(this.listKey.length<10) return;
+    var code: string[] = [ "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a" ];
+    var checkIfAntares:boolean =true;
+    for (let index = 0; index < 10; index++) {
+      if(this.listKey[index]!=code[index])
+        checkIfAntares=false;
+    }
+    if(checkIfAntares) {
+      this.isAntares = true;
+      var sound = "../assets/antares.mp3";
+      sound && ( new Audio(sound) ).play()
+    }
+  }
+
   ngOnInit() {
     // intit all the artists
     imageData.artistList.forEach(artist =>
@@ -34,15 +57,25 @@ export class ImageDropComponent implements OnInit {
     // will push the data
     window.setInterval(() => {
       // will add the image to the list
-      if (this.scrollList.length==20) {
-        this.scrollList[idToReplace] = new ScrollImage(this.starlessList[Math.floor(Math.random()*this.starlessList.length)]);
+      if (this.isAntares) {
+        var newImage : ScrollImage = new ScrollImage(this.antaresList[Math.floor(Math.random()*this.antaresList.length)])
       } else {
-      this.scrollList.push(new ScrollImage(this.starlessList[Math.floor(Math.random()*this.starlessList.length)]));
+        var newImage : ScrollImage = new ScrollImage(this.starlessList[Math.floor(Math.random()*this.starlessList.length)])
+      }
+      if (this.scrollList.length==20) {
+        this.scrollList[idToReplace] = newImage;
+      } else {
+      this.scrollList.push(newImage);
       }
       idToReplace++;
       if(idToReplace>19)
         idToReplace=0;
     },1000);
+  }
+
+  onImageRightClick(event: MouseEvent, scrollItem : ScrollImage)  {
+    console.log(scrollItem);
+    scrollItem.image=this.boom;
   }
 
   OpenLink(link : string | null) {
@@ -78,10 +111,10 @@ class Artist {
 }
 
 class Image {
-  artist: Artist;
+  artist: Artist| null;
   imgUrl: string;
 
-  constructor(artist:Artist, imgUrl:string) {
+  constructor(artist:Artist | null, imgUrl:string) {
     this.artist=artist;
     this.imgUrl=imgUrl;
   }
