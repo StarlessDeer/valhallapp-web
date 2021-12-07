@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { TooltipPosition } from '@angular/material/tooltip';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import imageData from '../imageUrl.json';
 
@@ -10,15 +11,18 @@ import imageData from '../imageUrl.json';
 })
 
 export class ImageDropComponent implements OnInit {
+  constructor(private _snackBar: MatSnackBar) {}
+  // image variables
   public artistList:Artist[] = [];
   public starlessList:Image[] = [];
-  public antaresList:Image[] = [];
   public scrollList:ScrollImage[] = [];
   public selectedImage: Image| undefined | null;
   public positionOptions: TooltipPosition="below";
+  // easter egg
   public listKey: string[] = [];
   public isAntares: boolean = false;
-  public boom : Image = new Image(null,"../assets/boom.gif");
+  public antaresList:Image[] = [];
+  public starlesskill:number = 0;
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if(event.key == "Escape") this.selectedImage=null;
@@ -73,9 +77,22 @@ export class ImageDropComponent implements OnInit {
     },1000);
   }
 
-  onImageRightClick(event: MouseEvent, scrollItem : ScrollImage)  {
-    console.log(scrollItem);
-    scrollItem.image=this.boom;
+  clickImage(scrollItem:ScrollImage) {
+    this.selectedImage=scrollItem.image;
+  }
+
+  rightClickImage(scrollItem:ScrollImage) {
+    if(scrollItem.image.imgUrl==""||scrollItem.image.imgUrl=="../assets/boom.gif") return;
+    scrollItem.image=new Image(null,"../assets/boom.gif");
+    window.setTimeout(() => {
+      scrollItem.image=new Image(null,"");
+      this.starlesskill++;
+      console.log(this.starlesskill);
+    },250)
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
   }
 
   OpenLink(link : string | null) {

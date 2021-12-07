@@ -1,8 +1,3 @@
-
-
-<div class="main" *ngIf="isMobile()">
-  <img *ngFor="let scrollItem of scrollList" [src]="scrollItem.image.imgUrl" class="imageArt"  [ngStyle]="{'margin-left':scrollItem.margin}" (click)="selectedImage=scrollItem.image" >
-</div>
 <div class="timeline" *ngIf="selectedImage!=null||isMobile()">
 
   <mat-icon class="cancel" (click)="ClearSelectedImage()" *ngIf="!isMobile()">cancel</mat-icon>
@@ -22,13 +17,15 @@
       <mat-icon>link</mat-icon>
       Twitter
     </button>
-    <button mat-raised-button [cdkCopyToClipboard]="selectedImage.imgUrl" matTooltip="Will copy the image url into the clipboard" >
+    <button mat-raised-button [cdkCopyToClipboard]="selectedImage.imgUrl" (click)="openSnackBar('Successfully copied to the clipboard!','Close')" matTooltip="Will copy the image url into the clipboard" >
       <mat-icon>link</mat-icon>
       Copy link to clipboard
     </button>
   </div>
 </div>
 
-<div class="main" *ngIf="!isMobile()">
-  <img *ngFor="let scrollItem of scrollList" [src]="scrollItem.image.imgUrl" class="imageArt"  [ngStyle]="{'margin-left':scrollItem.margin}" (click)="selectedImage=scrollItem.image">
+<div class="main">
+
+  <h2 class="killCounter" *ngIf="starlesskill!=0"><u>Starless kill:</u> {{starlesskill}}</h2>
+  <img *ngFor="let scrollItem of scrollList" [src]="scrollItem.image.imgUrl" class="imageArt"  [ngStyle]="{'margin-left':scrollItem.margin}" (click)="clickImage(scrollItem)" (auxclick)="rightClickImage(scrollItem)">
 </div>
