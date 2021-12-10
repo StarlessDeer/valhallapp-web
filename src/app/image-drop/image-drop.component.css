@@ -10,12 +10,25 @@
   overflow: hidden;
   z-index: 0;
 }
+
+.timeline {
+  color: white;
+  z-index: 1;
+  text-align: center;
+  position: relative;
+  width: 100%;
+}
+
 .line {
   width: 90%;
   height: 3px;
   background-color: white;
   margin: auto;
   margin-bottom: 20px;
+}
+
+.marginLine {
+  height: 5vh;
 }
 
 .killCounter {
@@ -75,6 +88,7 @@ button {
 
 .selectedImage {
   width: 80%;
+  height: 60vh;
   object-fit: scale-down;
   cursor: pointer;
 }
@@ -88,12 +102,13 @@ button {
 @media only screen and (min-width: 600px) {
   .main {
     height: 100vh;
+    position: absolute;
   }
   .timeline {
-    position: fixed;
+    position: absolute;
+    z-index: 2;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.75);
-    padding-top: 7.5vh;
   }
   .imageArt {
     width: 20%;
@@ -110,13 +125,12 @@ button {
 @media only screen and (max-width: 600px) {
   .main {
     height: 33vh;
-    margin-bottom: 64.5vh;
   }
   .timeline {
     height: 64.5vh;
     padding-top: 20px;
     position: fixed;
-    margin-top: 33vh;
+    background-color: black;
   }
 
   .imageArt {
@@ -153,13 +167,4 @@ button {
     opacity: 0;
     top: 120%;
   }
-}
-
-.timeline {
-  background-color: black;
-  color: white;
-  z-index: 1;
-  text-align: center;
-  position: relative;
-  width: 100%;
 }

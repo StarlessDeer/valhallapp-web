@@ -1,5 +1,20 @@
+<div class="main">
+  <h2 class="killCounter" *ngIf="starlesskill != 0">
+    <u>Starless kill:</u> {{ starlesskill }}
+  </h2>
+  <img
+    *ngFor="let scrollItem of scrollList"
+    [src]="scrollItem.image.imgUrl"
+    class="imageArt"
+    [ngStyle]="{ 'margin-left': scrollItem.margin }"
+    (click)="clickImage(scrollItem)"
+    (auxclick)="rightClickImage(scrollItem)"
+  />
+</div>
+
 <div class="timeline" *ngIf="selectedImage != null || isMobile()">
   <div class="line" *ngIf="isMobile()"></div>
+  <div class="marginLine" *ngIf="!isMobile()"></div>
   <!-- if nothing has been selected -->
   <div *ngIf="selectedImage == null">
     <h2><u>Click on an image to display it here!</u></h2>
@@ -57,20 +72,6 @@
       Copy link to clipboard
     </button>
   </div>
-</div>
-
-<div class="main">
-  <h2 class="killCounter" *ngIf="starlesskill != 0">
-    <u>Starless kill:</u> {{ starlesskill }}
-  </h2>
-  <img
-    *ngFor="let scrollItem of scrollList"
-    [src]="scrollItem.image.imgUrl"
-    class="imageArt"
-    [ngStyle]="{ 'margin-left': scrollItem.margin }"
-    (click)="clickImage(scrollItem)"
-    (auxclick)="rightClickImage(scrollItem)"
-  />
 </div>
 
 <!-- <div class="folder" *ngIf="!isMobile()"></div> -->
