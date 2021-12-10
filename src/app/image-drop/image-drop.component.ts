@@ -23,6 +23,7 @@ export class ImageDropComponent implements OnInit {
   public antaresList: Image[] = [];
   public starlesskill: number = 0;
   @HostListener('document:keydown', ['$event'])
+  // @HostListener('scroll', ['$event']) // for scroll events of the current element
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key == 'Escape') this.selectedImage = null;
     if (this.listKey.length > 9) {

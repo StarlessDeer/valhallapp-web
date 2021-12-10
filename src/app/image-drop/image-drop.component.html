@@ -1,77 +1,83 @@
-<div class="main">
-  <h2 class="killCounter" *ngIf="starlesskill != 0">
-    <u>Starless kill:</u> {{ starlesskill }}
-  </h2>
-  <img
-    *ngFor="let scrollItem of scrollList"
-    [src]="scrollItem.image.imgUrl"
-    class="imageArt"
-    [ngStyle]="{ 'margin-left': scrollItem.margin }"
-    (click)="clickImage(scrollItem)"
-    (auxclick)="rightClickImage(scrollItem)"
-  />
-</div>
-
-<div class="timeline" *ngIf="selectedImage != null || isMobile()">
-  <div class="line" *ngIf="isMobile()"></div>
-  <div class="marginLine" *ngIf="!isMobile()"></div>
-  <!-- if nothing has been selected -->
-  <div *ngIf="selectedImage == null">
-    <h2><u>Click on an image to display it here!</u></h2>
-    <img src="https://cdn.discordapp.com/emojis/790203014878855198.gif" />
-  </div>
-  <!-- if something has been selected AND mobile -->
-  <div *ngIf="selectedImage != null && selectedImage.artist != null">
-    <div class="header">
-      <img
-        [src]="selectedImage.artist.imgUrl"
-        class="pfp"
-        title="{{
-          selectedImage.artist.twitterUrl != null
-            ? 'Click here to open a new tab with the twitter of the artist!'
-            : null
-        }}"
-        [ngStyle]="{
-          cursor:
-            selectedImage.artist.twitterUrl != null ? 'pointer' : 'default'
-        }"
-        (click)="OpenLink(selectedImage.artist.twitterUrl)"
-      />
-      <h2 class="title"><u>Artist:</u> {{ selectedImage.artist.name }}</h2>
-      <mat-icon
-        class="cancel"
-        (click)="ClearSelectedImage()"
-        *ngIf="!isMobile()"
-      >
-        cancel
-      </mat-icon>
-    </div>
+<div>
+  <div class="main">
+    <h2 class="killCounter" *ngIf="starlesskill != 0">
+      <u>Starless kill:</u> {{ starlesskill }}
+    </h2>
     <img
-      [src]="selectedImage.imgUrl"
-      class="selectedImage"
-      (click)="OpenLink(selectedImage.imgUrl)"
-      title="Click to open a new tab with the image!"
+      *ngFor="let scrollItem of scrollList"
+      [src]="scrollItem.image.imgUrl"
+      [class.activeBorder]="
+        scrollItem.image.imgUrl != '../assets/boom.gif' &&
+        scrollItem.image.imgUrl != ''
+      "
+      class="imageArt"
+      [ngStyle]="{ 'margin-left': scrollItem.margin }"
+      (click)="clickImage(scrollItem)"
+      (auxclick)="rightClickImage(scrollItem)"
     />
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="OpenLink(selectedImage.artist.twitterUrl)"
-      *ngIf="selectedImage.artist.twitterUrl != null"
-      matTooltip="Will open up their twitter page"
-    >
-      <mat-icon>link</mat-icon>
-      Twitter
-    </button>
-    <button
-      mat-raised-button
-      [cdkCopyToClipboard]="selectedImage.imgUrl"
-      (click)="openSnackBar('Successfully copied to the clipboard!', 'Close')"
-      matTooltip="Will copy the image url into the clipboard"
-    >
-      <mat-icon>link</mat-icon>
-      Copy link to clipboard
-    </button>
   </div>
-</div>
 
-<!-- <div class="folder" *ngIf="!isMobile()"></div> -->
+  <div class="timeline" *ngIf="selectedImage != null || isMobile()">
+    <div class="line" *ngIf="isMobile()"></div>
+    <div class="marginLine" *ngIf="!isMobile()"></div>
+    <!-- if nothing has been selected -->
+    <div *ngIf="selectedImage == null">
+      <h2><u>Click on an image to display it here!</u></h2>
+      <img src="https://cdn.discordapp.com/emojis/790203014878855198.gif" />
+    </div>
+    <!-- if something has been selected AND mobile -->
+    <div *ngIf="selectedImage != null && selectedImage.artist != null">
+      <div class="header">
+        <img
+          [src]="selectedImage.artist.imgUrl"
+          class="pfp"
+          title="{{
+            selectedImage.artist.twitterUrl != null
+              ? 'Click here to open a new tab with the twitter of the artist!'
+              : null
+          }}"
+          [ngStyle]="{
+            cursor:
+              selectedImage.artist.twitterUrl != null ? 'pointer' : 'default'
+          }"
+          (click)="OpenLink(selectedImage.artist.twitterUrl)"
+        />
+        <h2 class="title"><u>Artist:</u> {{ selectedImage.artist.name }}</h2>
+        <mat-icon
+          class="cancel"
+          (click)="ClearSelectedImage()"
+          *ngIf="!isMobile()"
+        >
+          cancel
+        </mat-icon>
+      </div>
+      <img
+        [src]="selectedImage.imgUrl"
+        class="selectedImage"
+        (click)="OpenLink(selectedImage.imgUrl)"
+        title="Click to open a new tab with the image!"
+      />
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="OpenLink(selectedImage.artist.twitterUrl)"
+        *ngIf="selectedImage.artist.twitterUrl != null"
+        matTooltip="Will open up their twitter page"
+      >
+        <mat-icon>link</mat-icon>
+        Twitter
+      </button>
+      <button
+        mat-raised-button
+        [cdkCopyToClipboard]="selectedImage.imgUrl"
+        (click)="openSnackBar('Successfully copied to the clipboard!', 'Close')"
+        matTooltip="Will copy the image url into the clipboard"
+      >
+        <mat-icon>link</mat-icon>
+        Copy link to clipboard
+      </button>
+    </div>
+  </div>
+
+  <!-- <div class="folder" *ngIf="!isMobile()"></div> -->
+</div>
