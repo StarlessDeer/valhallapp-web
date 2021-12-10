@@ -7,7 +7,7 @@
   background-color: black;
   position: relative;
   display: grid;
-  overflow:hidden;
+  overflow: hidden;
   z-index: 0;
 }
 .line {
@@ -29,6 +29,35 @@
   padding: 5px;
 }
 
+.title {
+  display: inline;
+  margin-bottom: 0;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2.5vh;
+}
+
+.pfp {
+  object-fit: cover;
+  width: 5vw;
+  height: 5vw;
+  border-radius: 50%;
+  border: 5px solid black;
+  background-color: white;
+}
+
+.cancel {
+  cursor: pointer;
+  width: 3.5%;
+  display: inline;
+}
+
 button {
   margin: 2.5%;
 }
@@ -46,16 +75,62 @@ button {
 
 .selectedImage {
   width: 80%;
-  object-fit:scale-down;
+  object-fit: scale-down;
   cursor: pointer;
 }
 
-.cancel {
-  cursor: pointer;
-  padding-bottom: 5vh;
-  padding-top: 5vh;
-  padding-left: 70%;
-  font-size: 50px;
+.folder {
+  width: 100%;
+  height: 100vh;
+}
+
+/* pc */
+@media only screen and (min-width: 600px) {
+  .main {
+    height: 100vh;
+  }
+  .timeline {
+    position: fixed;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding-top: 7.5vh;
+  }
+  .imageArt {
+    width: 20%;
+  }
+
+  .selectedImage {
+    height: 60vh;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+}
+/* mobile */
+@media only screen and (max-width: 600px) {
+  .main {
+    height: 33vh;
+    margin-bottom: 64.5vh;
+  }
+  .timeline {
+    height: 64.5vh;
+    padding-top: 20px;
+    position: fixed;
+    margin-top: 33vh;
+  }
+
+  .imageArt {
+    width: 30%;
+  }
+
+  .selectedImage {
+    height: 30vh;
+  }
+
+  .pfp {
+    width: 15vw;
+    height: 15vw;
+  }
 }
 
 /* animation */
@@ -87,48 +162,4 @@ button {
   text-align: center;
   position: relative;
   width: 100%;
-}
-
-/* pc */
-@media only screen and (min-width: 600px) {
-  .imageArt {
-    width: 20%;
-  }
-  .timeline {
-    position:fixed;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.75);;
-  }
-  .main {
-  height: 100vh;
-  }
-
-  .selectedImage {
-    height: 60vh;
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
-  }
-}
-/* mobile */
-@media only screen and (max-width: 600px) {
-
-  .timeline {
-    height: 64.5vh;
-    padding-top: 20px;
-    position: fixed;
-    margin-top: 33vh;
-  }
-
-  .imageArt {
-    width: 30%;
-  }
-  .main {
-  height: 33vh;
-  margin-bottom: 64.5vh;
-  }
-
-  .selectedImage {
-    height: 30vh;
-  }
 }
